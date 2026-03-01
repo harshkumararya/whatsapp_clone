@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:whatsapp_clone/features/app/const/app_const.dart';
 import 'package:whatsapp_clone/features/app/global/widgets/profile_widget.dart';
+import 'package:whatsapp_clone/features/app/home/home_page.dart';
 import 'package:whatsapp_clone/features/app/theme/style.dart';
 
 class InitialProfileSubmitPage extends StatefulWidget {
@@ -15,7 +16,6 @@ class InitialProfileSubmitPage extends StatefulWidget {
 }
 
 class _InitialProfileSubmitPageState extends State<InitialProfileSubmitPage> {
-
   final TextEditingController _usernameController = TextEditingController();
   File? _image;
 
@@ -72,14 +72,12 @@ class _InitialProfileSubmitPageState extends State<InitialProfileSubmitPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 10),
             Container(
               height: 40,
               margin: EdgeInsets.only(top: 1.5),
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: tabColor,width: 1.5),
-                )
+                border: Border(bottom: BorderSide(color: tabColor, width: 1.5)),
               ),
               child: TextField(
                 controller: _usernameController,
@@ -89,31 +87,36 @@ class _InitialProfileSubmitPageState extends State<InitialProfileSubmitPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
-             GestureDetector(
-            onTap: (){
-              // Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpPage()));
-            },
-            child: Container(
-              margin: EdgeInsets.only(bottom: 20),
-              width: 120,
-              height: 40,
-              decoration: BoxDecoration(
-                color: tabColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text("Next",style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),),
+            SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (route) => false,
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: 20),
+                width: 120,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: tabColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    "Next",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ),
             ),
-          )
-
-
-  
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/features/app/splash/splash_screen.dart';
 import 'package:whatsapp_clone/features/app/theme/style.dart';
+import 'package:whatsapp_clone/routes/on_generate_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,13 @@ class MyApp extends StatelessWidget {
           surface: appBarColor, // Dialogs aur Cards default mein yahi se color uthate hain
         ),
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      initialRoute: "/",
+      onGenerateRoute: OnGenerateRoutes.route,
+      routes: {
+        "/" : (context) => SplashScreen()
+      },
+
     );
   }
 }
