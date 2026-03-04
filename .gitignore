@@ -43,3 +43,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android Firebase
+android/app/google-services.json
+# iOS Firebase
+ios/Runner/GoogleService-Info.plist
+
+# Local Environment / Secrets (For Cloudinary keys)
+lib/firebase_options.dart

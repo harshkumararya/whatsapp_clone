@@ -1,14 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:whatsapp_clone/features/app/const/app_const.dart';
 import 'package:whatsapp_clone/features/app/global/widgets/profile_widget.dart';
 import 'package:whatsapp_clone/features/app/home/home_page.dart';
 import 'package:whatsapp_clone/features/app/theme/style.dart';
+import 'package:whatsapp_clone/features/user/domain/entities/user_entity.dart';
+import 'package:whatsapp_clone/features/user/presentation/cubit/credential/credential_cubit.dart';
+import 'package:whatsapp_clone/storage/cloudinary_service.dart';
 
 class InitialProfileSubmitPage extends StatefulWidget {
-  const InitialProfileSubmitPage({super.key});
+  final String phoneNumber;
+  const InitialProfileSubmitPage({super.key, required this.phoneNumber});
 
   @override
   State<InitialProfileSubmitPage> createState() =>
@@ -18,6 +23,8 @@ class InitialProfileSubmitPage extends StatefulWidget {
 class _InitialProfileSubmitPageState extends State<InitialProfileSubmitPage> {
   final TextEditingController _usernameController = TextEditingController();
   File? _image;
+
+  bool _isProfileUpdating = false;
 
   Future selectImage() async {
     try {
@@ -89,14 +96,15 @@ class _InitialProfileSubmitPageState extends State<InitialProfileSubmitPage> {
             ),
             SizedBox(height: 20),
             GestureDetector(
-              onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                  (route) => false,
-                );
-              },
+              onTap: submitProfileInfo,
+              // onTap: () {
+              //   // Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+              //   // Navigator.pushAndRemoveUntil(
+              //   //   context,
+              //   //   MaterialPageRoute(builder: (context) => HomePage(uid: '',)),
+              //   //   (route) => false,
+              //   // );
+              // },
               child: Container(
                 margin: EdgeInsets.only(bottom: 20),
                 width: 120,
@@ -121,5 +129,41 @@ class _InitialProfileSubmitPageState extends State<InitialProfileSubmitPage> {
         ),
       ),
     );
+  }
+
+
+
+   void submitProfileInfo() {
+    if(_image != null) {
+      StorageProviderRemoteDataSource.uploadProfileImage(
+          file: _image!,
+          onComplete: (onProfileUpdateComplete) {
+            setState(() {
+              _isProfileUpdating = onProfileUpdateComplete;
+            });
+          }
+      ).then((profileImageUrl) {
+        _profileInfo(
+            profileUrl: profileImageUrl
+        );
+      });
+    } else {
+      _profileInfo(profileUrl: "");
+    }
+  }
+
+  void _profileInfo({String? profileUrl}) {
+    if (_usernameController.text.isNotEmpty) {
+      BlocProvider.of<CredentialCubit>(context).submitProfileInfo(
+          user: UserEntity(
+            email: "",
+            username: _usernameController.text,
+            phoneNumber: widget.phoneNumber,
+            status: "Hey There! I'm using WhatsApp Clone",
+            isOnline: false,
+            profileUrl: profileUrl,
+          )
+      );
+    }
   }
 }

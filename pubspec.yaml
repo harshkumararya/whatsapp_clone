@@ -71,6 +71,7 @@ dependencies:
   story_view: ^0.16.6
   pinput: ^6.0.2
   timeago: ^3.7.1
+  cloudinary_public: ^0.23.1
 
 dev_dependencies:
   flutter_test:
