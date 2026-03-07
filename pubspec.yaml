@@ -72,6 +72,7 @@ dependencies:
   pinput: ^6.0.2
   timeago: ^3.7.1
   cloudinary_public: ^0.23.1
+  media_kit: ^1.2.6
 
 dev_dependencies:
   flutter_test:

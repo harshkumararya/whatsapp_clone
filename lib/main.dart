@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone/features/app/home/home_page.dart';
 import 'package:whatsapp_clone/features/app/splash/splash_screen.dart';
 import 'package:whatsapp_clone/features/app/theme/style.dart';
+import 'package:whatsapp_clone/features/chat/presentation/cubit/chat/chat_cubit.dart';
+import 'package:whatsapp_clone/features/chat/presentation/cubit/message/message_cubit.dart';
 import 'package:whatsapp_clone/features/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:whatsapp_clone/features/user/presentation/cubit/credential/credential_cubit.dart';
 import 'package:whatsapp_clone/features/user/presentation/cubit/get_device_number/get_device_number_cubit.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<GetSingleUserCubit>()),
         BlocProvider(create: (context) => di.sl<UserCubit>()),
         BlocProvider(create: (context) => di.sl<GetDeviceNumberCubit>()),
+        BlocProvider(create: (context) => di.sl<ChatCubit>()),
+        BlocProvider(create: (context) => di.sl<MessageCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -50,10 +54,9 @@ class MyApp extends StatelessWidget {
           ),
 
           colorScheme: const ColorScheme.dark().copyWith(
-            surface:
-                appBarColor,
-            brightness: Brightness.dark ,// Dialogs aur Cards default mein yahi se color uthate hain'
-            
+            surface: appBarColor,
+            brightness: Brightness
+                .dark, // Dialogs aur Cards default mein yahi se color uthate hain'
           ),
         ),
         // home: const SplashScreen(),

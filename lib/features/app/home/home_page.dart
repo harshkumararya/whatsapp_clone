@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/features/app/const/page_const.dart';
-import 'package:whatsapp_clone/features/app/home/contacts_page.dart';
+
 import 'package:whatsapp_clone/features/app/theme/style.dart';
-import 'package:whatsapp_clone/features/call/presentation/pages/call_contacts_page.dart';
 import 'package:whatsapp_clone/features/call/presentation/pages/call_history_page.dart';
 import 'package:whatsapp_clone/features/chat/presentation/pages/chat_page.dart';
 import 'package:whatsapp_clone/features/status/presentation/pages/status_page.dart';
@@ -113,7 +112,7 @@ class _HomePageState extends State<HomePage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [ChatPage(), StatusPage(), CallHistoryPage()],
+        children: [ChatPage(uid: widget.uid,), StatusPage(), CallHistoryPage()],
       ),
     );
   }
@@ -127,7 +126,7 @@ class _HomePageState extends State<HomePage>
             onPressed: () {
               // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactsPage()));
 
-              Navigator.pushNamed(context, PageConst.contactUsersPage);
+              Navigator.pushNamed(context, PageConst.contactUsersPage,arguments:widget.uid );
             },
             child: Icon(Icons.message, color: Colors.white),
           );
