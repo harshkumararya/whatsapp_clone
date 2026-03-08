@@ -53,6 +53,7 @@ class _ChatPageState extends State<ChatPage> {
                       recipientName: chat.recipientName,
                       senderProfile: chat.senderProfile,
                       recipientProfile: chat.recipientProfile,
+                      uid: widget.uid
                     )
                     );
                   },
